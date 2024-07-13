@@ -18,28 +18,38 @@ const InfiniteCarousel = ({
   service: string;
   type: Services[];
 }) => {
-  const [imgSize, setImgSize] = useState<number>(0);
+  const [imgWidth, setImgWidth] = useState<number>(0);
+  const [imgHeight, setImgHeight] = useState<number>(0);
   const [imgDuration, setImgDuration] = useState<number>(0);
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-    if (service === "square" || service === "portrait") {
-      setImgSize(236);
+    if (service === "square") {
+      setImgWidth(236);
+      setImgHeight(236);
+      setImgDuration(4);
+    }
+
+    if (service === "portrait") {
+      setImgWidth(220);
+      setImgHeight(300);
       setImgDuration(4);
     }
     if (service === "landscape") {
-      setImgSize(419);
+      setImgWidth(419);
+      setImgHeight(236);
       setImgDuration(7);
     }
     if (service === "cover") {
-      setImgSize(200);
+      setImgWidth(200);
+      setImgHeight(300);
       setImgDuration(4);
     }
   }, [service]);
 
   const translateX: string =
-    `${type.length * (imgSize + 16) - windowWidth}` + "px";
+    `${type.length * (imgWidth + 16) - windowWidth}` + "px";
 
   // Define keyframes
   const slideFromRight = keyframes`
@@ -50,6 +60,7 @@ const InfiniteCarousel = ({
       transform: translateX(calc(-${translateX})); 
     }
     `;
+
   const AnimatedDiv = styled.div`
     animation: ${slideFromRight} linear infinite;
     animation-duration: calc(${type.length} * ${imgDuration}s);
@@ -58,6 +69,8 @@ const InfiniteCarousel = ({
       animation-play-state: paused;
     }
   `;
+
+  console.log("imgHeight", imgHeight);
 
   return (
     <div className="w-screen relative overflow-hidden py-4 pb-32">
@@ -72,7 +85,7 @@ const InfiniteCarousel = ({
                 style={{
                   // service === "portrait" ? 300 : 236,
                   height: "100%",
-                  width: imgSize,
+                  width: imgWidth,
                 }}
               >
                 <Button>
@@ -84,16 +97,23 @@ const InfiniteCarousel = ({
                   </div>
                 </Button>
               </div>
-              <Image
-                src={_.imgUrl || ""}
-                alt="image"
-                className="rounded-lg"
-                width={imgSize}
-                height={0}
-              />
+              {_.imgUrl != "" ? (
+                <Image
+                  src={_.imgUrl || ""}
+                  alt="image"
+                  className="rounded-lg"
+                  width={imgWidth}
+                  height={imgHeight}
+                />
+              ) : (
+                <div
+                  className={cn(` bg-dark-gray rounded-lg animate-pulse`)}
+                  style={{ width: imgWidth, height: imgHeight }}
+                ></div>
+              )}
 
               <div
-                style={{ width: imgSize }}
+                style={{ width: imgWidth }}
                 className="grid grid-cols-1 gap-1 mt-3"
               >
                 <p className="text-sm tracking-wide truncate">{_.title}</p>
