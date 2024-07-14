@@ -7,7 +7,7 @@ export default function Layout({
 }>) {
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="px-[14px]">{children}</div>
+      <div className="sm:px-[14px]">{children}</div>
     </div>
   );
 }

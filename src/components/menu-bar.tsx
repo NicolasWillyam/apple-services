@@ -7,6 +7,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { IoBagOutline } from "react-icons/io5";
 import { cn } from "@/lib/utils";
 import Layout from "./layout";
+import { TbMenu } from "react-icons/tb";
 
 import "../styles/styles.css";
 
@@ -16,7 +17,8 @@ import MenuItemsList from "./menu-items-list";
 import SearchBoard from "./search-board";
 
 const MenuBar = () => {
-  const iconStyle = "mx-2 text-white/80 hover:text-white cursor-pointer";
+  const iconStyle =
+    "mx-3.5 sm:mx-2 text-white/80 hover:text-white cursor-pointer";
 
   const [list, setList] = useState<List[]>([]);
   const [mouseState, setMouseState] = useState<boolean>(false);
@@ -27,14 +29,19 @@ const MenuBar = () => {
 
   const [height, setHeight] = useState(0);
   const divRef = useRef<HTMLDivElement>(null);
+  const [windowHeight, setWindowHeight] = useState<number>(0);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
 
   useEffect(() => {
+    setWindowHeight(window.innerHeight);
+    setWindowWidth(window.innerWidth);
+
     if (divRef.current) {
       setHeight(divRef.current.offsetHeight);
     }
   }, [mouseState, list]);
 
-  console.log(height);
+  console.log("height", height);
 
   const controlNavbar = useCallback(() => {
     if (window.scrollY > 0) {
@@ -71,6 +78,8 @@ const MenuBar = () => {
     setHeight(0);
   };
 
+  console.log(windowHeight);
+
   return (
     <>
       <div className="fixed top-0 w-full transition-all z-10">
@@ -85,12 +94,18 @@ const MenuBar = () => {
           <div
             className={cn(
               show ? "bg-dark-gray/0" : "bg-dark-gray/100",
-              "h-11 w-full transition-colors duration-300"
+              "h-12 sm:h-11 w-full transition-colors duration-300"
             )}
           >
             <Layout>
-              <ul className="h-11 flex items-center justify-between gap-2 text-xs font-light tracking-wider ">
-                <IoLogoApple size={18} className={cn("mb-0.5", iconStyle)} />
+              <ul className="h-12 sm:h-11 flex items-center justify-between gap-2 text-xs font-light tracking-wider ">
+                <IoLogoApple
+                  size={18}
+                  className={cn(
+                    "mb-0.5 w-[22px] h-[22px] sm:w-[18px] sm:h-[18px]",
+                    iconStyle
+                  )}
+                />
 
                 {menuList.map((item, id) => (
                   <li
@@ -98,24 +113,47 @@ const MenuBar = () => {
                       handleMouse(item.name);
                       setSearchState(false);
                     }}
-                    className={cn("h-full flex items-center", iconStyle)}
+                    className={cn(
+                      "h-full hidden sm:flex items-center",
+                      iconStyle
+                    )}
                     key={id}
                   >
                     {item.name}
                   </li>
                 ))}
-                <BsSearch
-                  size={14}
-                  className={cn(iconStyle)}
-                  onClick={() => {
-                    setSearchState(true);
-                    setHeight(400);
-                  }}
-                  onMouseEnter={() => {
-                    setMouseState(false);
-                  }}
-                />
-                <IoBagOutline size={16} className={cn(iconStyle)} />
+                <div className="flex items-center sm:gap-3">
+                  <BsSearch
+                    size={14}
+                    className={cn(
+                      "w-[16px] h-[16px] sm:w-[14px] sm:h-[14px]",
+                      iconStyle
+                    )}
+                    onClick={() => {
+                      if (!searchState) {
+                        setSearchState(true);
+                        setHeight(windowHeight);
+                      } else {
+                        setSearchState(false);
+                        setHeight(0);
+                      }
+                    }}
+                    onMouseEnter={() => {
+                      setMouseState(false);
+                    }}
+                  />
+                  <IoBagOutline
+                    size={18}
+                    className={cn("w-5 h-5 sm:w-[18px] sm:h-[18px]", iconStyle)}
+                  />
+                  <TbMenu
+                    size={18}
+                    className={cn(
+                      "w-5 h-5 sm:w-[18px] sm:h-[18px] sm:hidden",
+                      iconStyle
+                    )}
+                  />
+                </div>
               </ul>
             </Layout>
             {/* <NavigationMenuDemo /> */}
@@ -133,7 +171,7 @@ const MenuBar = () => {
                 ref={divRef}
                 className={cn(
                   mouseState || searchState
-                    ? "py-10 pb-28 flex gap-10"
+                    ? "py-10 pb-28 flex gap-10 "
                     : "hidden"
                 )}
               >

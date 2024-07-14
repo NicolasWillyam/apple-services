@@ -31,6 +31,24 @@
       display: none;
     }
   }
+
+  @keyframes pulse-animation {
+    0% {
+      transform: scale(0.8); /* Start smaller */
+    }
+    50% {
+      transform: scale(1); /* Full size */
+    }
+    100% {
+      transform: scale(0.8); /* Back to smaller */
+    }
+  }
+
+  .pulse {
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 10%, rgba(255,255,255,0) 70%); /* Light run effect */
+    animation: pulse-animation 2s linear infinite; /* Animation properties */
+  }
+  
   
   .fade {
     animation: fade linear;

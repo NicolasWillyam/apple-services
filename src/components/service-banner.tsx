@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
@@ -33,21 +34,19 @@ const ServiceBanner = ({ service }: { service: Banner }) => {
           <div
             className={cn(
               checkVid ? "h-[550px] py-14 " : "h-auto py-7",
-              "flex items-end gap-10"
+              "flex flex-col justify-end sm:justify-start sm:flex-row sm:items-end gap-10 p-6"
             )}
           >
-            <div className="w-2/3">
+            <div className="w-3/4 sm:w-2/3">
               <div className="w-full flex gap-2 items-center">
-                <Image
+                <img
                   src={`/images/${service.appIcon}`}
                   alt="apple-one"
-                  width={35}
-                  height={35}
-                  className="rounded-[10px]"
+                  className="sm:rounded-[10px] sm:w-9 sm:h-9 w-7 h-7 rounded-[7px]"
                 />
-                <p className="text-[17px]">{service.appName}</p>
+                <p className="text-sm sm:text-[17px]">{service.appName}</p>
                 <Button
-                  className="flex items-center justify-center gap-1 ml-2"
+                  className="flex items-center justify-center sm:gap-1 ml-2"
                   variant={"outline"}
                   size={"icon"}
                 >
@@ -62,7 +61,7 @@ const ServiceBanner = ({ service }: { service: Banner }) => {
                 </Button>
               </div>
               <div className="mt-3">
-                <p className="text-[40px] leading-[40px] font-bold">
+                <p className="text-2xl leading-[28px] sm:text-[40px] sm:leading-[40px] font-semibold sm:font-bold">
                   {service.title}
                 </p>
               </div>

@@ -5,5 +5,5 @@ export default function Container({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="w-full pt-11">{children}</div>;
+  return <div className="w-full pt-12 sm:pt-11 inline-block">{children}</div>;
 }

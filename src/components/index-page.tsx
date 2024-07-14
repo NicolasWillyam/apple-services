@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import IndexPageHead from "./index-page-head";
 import MenuBar from "./menu-bar";
@@ -18,19 +19,20 @@ const IndexPage = () => {
       <Container>
         <Categories />
         <HeroPage />
-        <div className="w-full bg-dark-gray">
+        <div className="w-full bg-dark-gray py-14 border-t-[1px] border-light-gray/30">
           <Layout>
-            <div className="flex h-[148px] items-center justify-between ">
-              <Image
+            <div className="flex sm:h-[148px] items-center justify-between flex-col sm:flex-row text-center gap-6 px-16 sm:px-0">
+              <img
                 src={"./images/apple-one.svg"}
                 alt="apple-one"
-                width={123}
-                height={40}
+                className="sm:w-[123px] sm:h-[40px] h-[28px] w-[87px]"
               />
-              <p className="text-xl tracking-wider font-medium">
+              <p className="text-[17px] sm:text-xl tracking-wide font-medium">
                 Get up to six services in one subscription with Apple One.
               </p>
-              <Button variant="outline">Learn more</Button>
+              <Button className="sm:mb-0 mb-2.5" variant="outline">
+                Learn more
+              </Button>
             </div>
           </Layout>
         </div>

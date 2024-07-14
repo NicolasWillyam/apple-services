@@ -10,6 +10,7 @@ import { appleTVList } from "@/data/apple-tv";
 import { Services } from "@/lib/props";
 
 import styled, { keyframes } from "styled-components";
+import { ImageChecker } from "./image-checker";
 
 const InfiniteCarousel = ({
   service,
@@ -70,21 +71,19 @@ const InfiniteCarousel = ({
     }
   `;
 
-  console.log("imgHeight", imgHeight);
-
   return (
-    <div className="w-screen relative overflow-hidden py-4 pb-32">
+    <div className="w-screen relative overflow-hidden py-4 pb-16 sm:pb-32">
       <AnimatedDiv>
         <div className="w-full flex space-x-4 items-center transition-all">
           {type.map((_, id) => (
             <div key={id} className="flex-shrink-0 item relative">
               <div
                 className={cn(
-                  `bg-black/50 duration-500 absolute rounded-lg cursor-pointer items-center justify-center flex opacity-0 hover:opacity-100 pb-10`
+                  `bg-black/50 duration-500 absolute rounded-lg cursor-pointer items-center justify-center flex opacity-0 hover:opacity-100`
                 )}
                 style={{
                   // service === "portrait" ? 300 : 236,
-                  height: "100%",
+                  height: imgHeight,
                   width: imgWidth,
                 }}
               >
@@ -97,21 +96,11 @@ const InfiniteCarousel = ({
                   </div>
                 </Button>
               </div>
-              {_.imgUrl != "" ? (
-                <Image
-                  src={_.imgUrl || ""}
-                  alt="image"
-                  className="rounded-lg"
-                  width={imgWidth}
-                  height={imgHeight}
-                />
-              ) : (
-                <div
-                  className={cn(` bg-dark-gray rounded-lg animate-pulse`)}
-                  style={{ width: imgWidth, height: imgHeight }}
-                ></div>
-              )}
-
+              <ImageChecker
+                imageUrl={_.imgUrl || ""}
+                imgWidth={imgWidth}
+                imgHeight={imgHeight}
+              />
               <div
                 style={{ width: imgWidth }}
                 className="grid grid-cols-1 gap-1 mt-3"
@@ -125,6 +114,7 @@ const InfiniteCarousel = ({
           ))}
         </div>
       </AnimatedDiv>
+      <div className="sm:hidden w-full h-[1px] bg-light-gray/30 mt-4"></div>
     </div>
   );
 };

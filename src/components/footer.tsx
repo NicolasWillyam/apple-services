@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className="w-full bg-dark-gray text-light-gray font-light">
       <Layout>
-        <div className="px-2.5">
+        <div className="px-4 sm:px-2.5">
           <FooterNotes />
           <div className="w-full h-[1px] bg-light-gray/50 " />
           <div className="py-4 flex items-center gap-1.5">
