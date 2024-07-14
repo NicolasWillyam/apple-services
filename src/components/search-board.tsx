@@ -5,8 +5,20 @@ import { BsSearch } from "react-icons/bs";
 import { IoArrowForward } from "react-icons/io5";
 import "../styles/styles.css";
 import { IoCloseOutline } from "react-icons/io5";
-const SearchBoard = () => {
-  const [isClicked, setIsClicked] = useState(false);
+
+interface SearchBoardProps {
+  setSearchState: (state: boolean) => void; // Define setSearchState prop
+  setHeight: (height: number) => void;
+}
+
+const SearchBoard: React.FC<SearchBoardProps> = ({
+  setSearchState,
+  setHeight,
+}) => {
+  const handleClearClick = () => {
+    setSearchState(false); // Set searchState to false
+    setHeight(0); // Set height to 0
+  };
   return (
     <div className="w-full px-12 sm:px-2">
       <Fade>
@@ -20,7 +32,11 @@ const SearchBoard = () => {
             placeholder="Search apple.com"
             className="w-full outline-none text-2xl font-normal tracking-wider bg-dark-gray text-white input-placeholder"
           />
-          <IoCloseOutline className="text-light-gray" size={24} />
+          <IoCloseOutline
+            className="text-light-gray cursor-pointer"
+            size={32}
+            onClick={handleClearClick}
+          />
         </form>
 
         <div className="mt-10">

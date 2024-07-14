@@ -176,7 +176,12 @@ const MenuBar = () => {
                 )}
               >
                 {searchState == false && <MenuItemsList list={list} />}
-                {searchState == true && <SearchBoard />}
+                {searchState == true && (
+                  <SearchBoard
+                    setSearchState={setSearchState}
+                    setHeight={setHeight}
+                  />
+                )}
               </div>
             </Layout>
           </div>
